@@ -3,7 +3,7 @@ require 'schlepp-sink-fs/table_object/factory'
 module Schlepp
   class Sink
     class Fs
-      def initialize(model, opts = {})
+      def initialize(model, root, opts = {})
         @model = model
         factory = Schlepp::Sink::Fs::TableObject::Factory.new(self, @model.name)
         @sink = Schlepp::Sink.new(model, factory, Array(opts[:filters]) || [])
