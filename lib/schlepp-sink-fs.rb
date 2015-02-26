@@ -6,15 +6,14 @@ module Schlepp
       def initialize(model, root, opts = {})
         @model = model
         factory = Schlepp::Sink::Fs::TableObject::Factory.new(self, @model.name)
+        @root = root
         @sink = Schlepp::Sink.new(model, factory, Array(opts[:filters]) || [])
       end
 
-      def root
-        @root ||= URI('file:///tmp/foo/')
-      end
+      attr_reader :root
 
       def uri(basename)
-        @uri ||= root.merge(basename)
+        @uri ||= self.root.merge(basename)
       end
 
       def write(data)
